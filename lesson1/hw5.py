@@ -14,5 +14,3 @@ def clear_text(text):
 
 	tranlate_text = clean_text.translate(ua_eng_dict)
 	return tranlate_text
-
-
