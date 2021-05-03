@@ -104,8 +104,8 @@ def remove_directories(path):
             if not os.listdir(dir_path):
                 os.rmdir(dir_path)
 
-	
-if __name__ == '__main__':
+
+def main():
 	path = return_path()
 	normalize_files_names(path)
 	arrays_filling(path)
@@ -117,5 +117,10 @@ if __name__ == '__main__':
 	unpacking_archives(path)
 	remove_directories(path)
 	print('Everything is cleaned!')
+
+
+
+if __name__ == '__main__':
+	main()
 
 
