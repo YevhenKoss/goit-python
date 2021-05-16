@@ -1,7 +1,0 @@
-README.md
-setup.py
-CLIBot.egg-info/PKG-INFO
-CLIBot.egg-info/SOURCES.txt
-CLIBot.egg-info/dependency_links.txt
-CLIBot.egg-info/entry_points.txt
-CLIBot.egg-info/top_level.txt

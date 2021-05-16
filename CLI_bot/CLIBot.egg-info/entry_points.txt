@@ -1,3 +1,0 @@
-[console_scripts]
-bot = CLIBot.main:main
-
