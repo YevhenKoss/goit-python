@@ -45,4 +45,13 @@ class Record:
 
 
 
+abon_1 = Name('Vasya')
+phone_1 = Phone('+380976772685')
+phone_2 = Phone('+380971111111')
+record_1 = Record('VS')
+AB = AddressBook()
+AB.add_record(record_1)
 
+
+print(len(AB))
+print(record_1.name)
