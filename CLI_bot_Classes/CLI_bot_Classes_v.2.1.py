@@ -9,9 +9,28 @@ class AddressBook(UserDict):
     def add_record(self, record):
         self.data[record] = record
 
+    def find(self, find_data):
+        result = []
+        for i in self.data:
+            if re.findall(find_data, i.contact_data['Name'].name, re.IGNORECASE) or re.findall(find_data, i.contact_data['Phone'][0].phone, re.IGNORECASE):
+                result.append(i.contact_data['Name'].name)
+                result.append(i.contact_data['Phone'][0].phone)
+                for j in range(1, len(i.contact_data['Phone'])):
+                    result.append(i.contact_data['Phone'][j])
+        return result
+
+    def __getstate__(self):
+        attributes = self.__dict__
+        return attributes
+    
     def __iter__(self):
         self.index = 0
         return self
+
+    def load(self):
+        with open('save.bin', 'rb') as file:
+            unpacked = pickle.load(file)
+            return unpacked
 
     def __next__(self):
         keys = tuple(self.data.keys())
@@ -22,31 +41,10 @@ class AddressBook(UserDict):
         self.index += 1
         return record.name, record.phone
 
-    def __getstate__(self):
-        attributes = self.__dict__
-        return attributes
     
     def save(self):
         with open('save.bin', 'wb') as file:
             pickle.dump(self.data, file)
-
-    def load(self):
-        with open('save.bin', 'rb') as file:
-            unpacked = pickle.load(file)
-            return unpacked
-
-    def find(self, find_data):
-        result = []
-        for i in self.data:
-            if re.findall(find_data, i.contact_data['Name'].name, re.IGNORECASE) or re.findall(find_data, i.contact_data['Phone'][0].phone, re.IGNORECASE):
-                result.append(i.contact_data['Name'].name)
-                result.append(i.contact_data['Phone'][0].phone)
-                for j in range(1, len(i.contact_data['Phone'])):
-                    result.append(i.contact_data['Phone'][j])
-        return result
-            # print(i[0].name, i[1][0].phone)
-
-
 
 
 class Birthday():
@@ -179,35 +177,3 @@ class Record():
                 print('Your birthday is in ' + str(gap) + ' days.')
         else:
             print('Enter date of birth')
-
-
-
-abon_1 = Name('Vasya')
-abon_2 = Name('Petya')
-
-phone_1 = Phone(+380976772685)
-phone_2 = Phone(+380971111111)
-bd_1 = Birthday('01.03.1989')
-bd_2 = Birthday('10.10.2010')
-record_1 = Record(abon_1, phone_1, bd_1)
-record_1.add_phone('380975555555')
-record_2 = Record(abon_2, phone_2, bd_2)
-AB = AddressBook()
-AB.add_record(record_1)
-AB.add_record(record_2)
-print(AB.find('77'))
-# print(AB)
-
-
-# for i in AB:
-#     print(i)
-#     # print(i[0].name, i[1][0].phone)
-
-
-# AB.save()
-# ee = AB.load()
-# print(ee.keys())
-# print(AB.data[record_1].contact_data['Name'].name) # abonent's name
-# print(AB.data[record_1].contact_data['Phone'][1]) # abonent's phone list
-# print(len(AB.data[record_1].contact_data['Phone']))
-# print(AB.data[record_1].contact_data['Birthday'].birthday) # abonent's birthday
